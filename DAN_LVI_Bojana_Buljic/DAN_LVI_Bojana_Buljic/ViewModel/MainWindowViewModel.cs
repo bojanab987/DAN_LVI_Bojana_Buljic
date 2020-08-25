@@ -17,7 +17,7 @@ namespace DAN_LVI_Bojana_Buljic.ViewModel
     class MainWindowViewModel:ViewModelBase
     {
         MainWindow mainWindow;
-
+       
         #region Constructor
         /// <summary>
         /// Constructor for main view window
@@ -61,7 +61,7 @@ namespace DAN_LVI_Bojana_Buljic.ViewModel
                 return download;
             }
         }
-
+       
         /// <summary>
         /// Method to execute downloading the html code for inputed address
         /// </summary>
@@ -70,29 +70,42 @@ namespace DAN_LVI_Bojana_Buljic.ViewModel
             try
             {
                 //creating instance for request from web client
-                WebRequest request = WebRequest.Create(HTML);
-                request.Method = "GET";
 
-                //sting object containing the downloaded content
-                string htmlSource;
+                if (HTML.CheckURLValid())
+                {
+                    WebRequest request = WebRequest.Create(HTML);
 
-                //reading the all content from forwarded web address and keeping it into htmlSource string variable
-                using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
-                {
-                    htmlSource = reader.ReadToEnd();
-                }
-                //path of the file to keep downloaded content                
-                string filePath =string.Format(@"..\..\HTMLfiles\HTML_{0}_{1}_{2}_{3}.html", DateTime.Now.ToShortDateString(),DateTime.Now.Hour,DateTime.Now.Minute,DateTime.Now.Second);
-                //writing content into file
-                File.WriteAllText(filePath, htmlSource);
-                //notification if download is successfull
-                if (filePath != null)
-                {
-                    MessageBox.Show("Successfully downloaded html file", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //Uri request;
+
+                    //bool isOk = Uri.TryCreate(HTML, UriKind.Absolute, out request) && (request.Scheme == Uri.UriSchemeHttp||request.Scheme==Uri.UriSchemeHttps);
+                    request.Method = "GET";
+
+
+                    //sting object containing the downloaded content
+                    string htmlSource;
+
+                    //reading the all content from forwarded web address and keeping it into htmlSource string variable
+                    using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
+                    {
+                        htmlSource = reader.ReadToEnd();
+                    }
+                    //path of the file to keep downloaded content                
+                    string filePath = string.Format(@"..\..\HTMLfiles\HTML_{0}_{1}_{2}_{3}.html", DateTime.Now.ToShortDateString(), DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                    //writing content into file
+                    File.WriteAllText(filePath, htmlSource);
+                    //notification if download is successfull
+                    if (filePath != null)
+                    {
+                        MessageBox.Show("Successfully downloaded html file", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not download the file", "Error", MessageBoxButton.OK);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Could not download the file", "Error", MessageBoxButton.OK);
+                    MessageBox.Show("URL address is not in correct!", "Error", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
