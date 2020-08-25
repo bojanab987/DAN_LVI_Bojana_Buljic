@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAN_LVI_Bojana_Buljic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="HTML downloading" Height="300" SizeToContent="Width">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />            
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1" 
+               Grid.Column="1"
+               Grid.ColumnSpan="5"
+               Content="HTML DOWNLOADING"
+               FontSize="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               Margin="0,0,0,20"/>
+        <Label Grid.Row="3" 
+               Grid.Column="1"
+               Content="Enter URL address:"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               FontSize="20"/>
+        <TextBox Grid.Row="3"
+                 Grid.Column="3"
+                 Width="250"
+                 FontSize="14"
+                 HorizontalAlignment="Center"
+                 Text="{Binding HTML, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Column="5"
+                    Grid.Row="3"
+                    Grid.RowSpan="2"
+                    Orientation="Vertical">
+            <Button Content="Download HTML" Margin="2,2" FontSize="15"
+                    Command="{Binding Download}"/>
+            <Button Content="ZIP files"
+                    Margin="2,2"
+                    FontSize="15" 
+                    Command="{Binding Zip}"/>
+        </StackPanel>
+        <Button Grid.Column="5"
+                Grid.Row="5"
+                Content="Exit"
+                FontSize="15"
+                Margin="2,2"
+                Command="{Binding Exit, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>
