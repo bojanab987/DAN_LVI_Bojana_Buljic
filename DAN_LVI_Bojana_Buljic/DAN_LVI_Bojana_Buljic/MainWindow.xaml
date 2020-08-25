@@ -13,7 +13,8 @@
             <RowDefinition Height="10" />
             <RowDefinition Height="auto" />            
             <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -57,11 +58,20 @@
                     FontSize="15" 
                     Command="{Binding Zip}"/>
         </StackPanel>
-        <Button Grid.Column="5"
-                Grid.Row="5"
-                Content="Exit"
-                FontSize="15"
-                Margin="2,2"
-                Command="{Binding Exit, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Grid.Column="5"
+                    Grid.Row="5"
+                    Orientation="Vertical">
+            <Button Content="Refresh"
+                    Margin="2,2"
+                    FontSize="15"
+                    Command="{Binding Refresh}" />
+            <Button Content="Exit"
+                    FontSize="15"
+                    Margin="2,2"
+                    Command="{Binding Exit}" />
+            
+        </StackPanel>
+       
+        
     </Grid>
 </Window>
